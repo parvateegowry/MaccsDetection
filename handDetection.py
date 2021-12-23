@@ -261,15 +261,102 @@ def handDetection():
     
 
     
-    #print(coordinates)
+    def Rearrange(DictionaryTest):
+        AvgDictionary = DictionaryTest
+        labelsavg = {}
+        Yminmaxlist = {}    
+        line1 = {}
+        line2 = {}
+        sort_line1 = {}
+        sort_line2 = {}
+        minAvg = ""
+        midPoint=""
+        for key, values in AvgDictionary.items():
+            
+            avgYminmax = ((values[1][0]+values[1][1])/2)
+            
+            Yminmaxlist[key] = avgYminmax   
+            labelsavg[key] = values[0]
+            
+            # Yminmaxlist[key] = AvgDictionary[values[0]]
+            # print(values[0])
+            avgValues = Yminmaxlist.values()
+            minAvg = min(avgValues)
+            maxAvg = max(avgValues)
+            midPoint = (minAvg + maxAvg)/2
+        
+        result = {}
 
-    amount_written = ' '.join(str(e) for e in Image_label)
+        test = {}
+        final = {}
+        for key in (Yminmaxlist.keys() | labelsavg.keys() ):
+            if key in Yminmaxlist:
+                result.setdefault(key, []).append(Yminmaxlist[key])
+            if key in labelsavg:
+                result.setdefault(key, []).append(labelsavg[key])
+        #print(result)
+        
+        for key, values in DictionaryTest.items():
+            #print(key)
+            #for value in values[1]:
+            test[key] = values[1][2]
+        
+        # for values in test.values():
+        #     print(values[2])
+        # print(test)
+        # print(result)
+        
+        for key in (result.keys() | test.keys() ):
+            if key in result:
+                final.setdefault(key, []).append(result[key])
+            if key in test:
+                final.setdefault(key, []).append(test[key])
+        #print(final)
+
+        
+
+       
+        for key, values in final.items():
+            #print(values[0][0])
+            if values[0][0] <= midPoint:
+                line1[key] = final[key]
+            else:
+                line2[key] = final[key]
+        #print(line1.values())
+        #print(line2)
+        
+        sort_line1 = sorted(line1.values(), key=lambda x: x[1], reverse=False)
+        #print(sort_line1)
     
-    global amounthand 
- 
+        sort_line2 = sorted(line2.values(), key=lambda x: x[1], reverse=False)
+        #print(sort_line2)
+        
+        
+        written_line1 = " "
+        
+        for i in sort_line1:
+            #print(i)
+            #print(i[0][1])
+            written_line1 = written_line1 + i[0][1][0] + " "
+
+        ##print(written_line1)
+               
+        for i in sort_line2:
+            written_line1 = written_line1 + i[0][1][0] + " "
+        
+        print(written_line1)
+       
+            
     
-    amounthand = amount_written
+    global amounthand    
+    amounthand = Rearrange(coordinates)
     
+    
+    Rearrange(coordinates)
+    #sortingPosition(coordinates)
+    
+        
+    #print(amounthand)
     print(amounthand)
 
 

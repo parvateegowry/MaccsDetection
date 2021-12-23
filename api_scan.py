@@ -49,7 +49,7 @@ def digitfunction2():
         cv2.imwrite('C:\\TFODCourse-main\\images\\temp.jpg', img)
         
         print("start scanning")  
-        print("test"
+       
         printedDoc.recognition()
         handDetection.handDetection()
         amountDigitrecog.digitamountRecog()
